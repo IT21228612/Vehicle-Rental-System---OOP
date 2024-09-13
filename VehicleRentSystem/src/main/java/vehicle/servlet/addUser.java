@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 
 import vehicle.classes.*;
 import vehicle.service.*;
@@ -49,7 +50,12 @@ public class addUser extends HttpServlet {
 		user.setEmail(request.getParameter("email"));
 		user.setNic(request.getParameter("nic"));
 		user.setPhoto(request.getParameter("photo"));
-		user.setPassword(request.getParameter("password"));
+		
+		// Hash the password before setting it
+        String password = request.getParameter("password");
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        user.setPassword(hashedPassword);
+		
 		user.setPrivilege(0);
 		
 		userService s = new userService();
