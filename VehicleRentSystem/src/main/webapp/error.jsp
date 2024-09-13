@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         <h1>An Unexpected Error Occurred</h1>
-        <p>Sorry, but we encountered an unexpected error. Please try again later.</p>
+        <p>Sorry, But we encountered an unexpected error. Please try again later.</p>
         <p><a href="<%= request.getContextPath() %>/login.jsp">Return to Home</a></p>
     </div>
 </body>
