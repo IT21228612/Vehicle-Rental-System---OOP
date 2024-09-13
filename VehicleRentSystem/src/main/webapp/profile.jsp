@@ -23,6 +23,17 @@
   	</style>
 </head>
 <body>
+<% 
+    request.getSession(false);  // Use false to avoid creating a new session
+    Integer privilege = (Integer) session.getAttribute("privilege");
+
+    if (privilege == null || privilege != 1) {  // 1 = admin role, 0 = user role
+    		if(privilege != 0){
+    			 response.sendRedirect("notAuthError.jsp");  // Redirect unauthorized users
+    		        return;
+    		}
+    }
+%>
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a href="#" class="navbar-brand">Vehicle Reservation System</a>
