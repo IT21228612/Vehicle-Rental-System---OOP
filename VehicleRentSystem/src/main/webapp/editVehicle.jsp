@@ -27,6 +27,16 @@
     </style>
 </head>
 <body>
+  
+	        <% 
+    request.getSession(false);  // Use false to avoid creating a new session
+    Integer privilege = (Integer) session.getAttribute("privilege");
+
+    if (privilege == null || privilege != 1) {  // 1 = admin role, 0 = user role
+        response.sendRedirect("notAuthError.jsp");  // Redirect unauthorized users
+        return;
+    }
+%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
     	<div class="container">
 	        <a class="navbar-brand" href="admin.jsp">Vehicle Reservation System</a>

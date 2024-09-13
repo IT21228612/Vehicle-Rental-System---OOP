@@ -23,6 +23,16 @@
   	</style>
 </head>
 <body>
+  
+	        <% 
+    request.getSession(false);  // Use false to avoid creating a new session
+    Integer privilege = (Integer) session.getAttribute("privilege");
+
+    if (privilege == null || privilege != 1) {  // 1 = admin role, 0 = user role
+        response.sendRedirect("notAuthError.jsp");  // Redirect unauthorized users
+        return;
+    }
+%>
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a href="admin.jsp" class="navbar-brand">Vehicle Reservation System</a>
@@ -62,6 +72,7 @@
             	<a href="viewDriver.jsp" class="btn btn-primary btn-lg btn-block">All Drivers</a>
             	<a href="addVehicle.jsp" class="btn btn-primary btn-lg btn-block">Add Vehicle</a>
             	<a href="viewVehicle.jsp" class="btn btn-primary btn-lg btn-block">All Vehicles</a>
+            	<a href="systemUsers.jsp" class="btn btn-primary btn-lg btn-block">All Users</a>
             </div>
         </div>
     </div>
