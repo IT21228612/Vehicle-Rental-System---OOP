@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import vehicle.classes.*;
 import vehicle.service.*;
@@ -30,6 +31,27 @@ public class getReservation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+
+		HttpSession session = request.getSession(false); // Use false to not create a new session if it doesn't exist
+		
+		if (session == null || session.getAttribute("userEmail") == null) {
+            // User is not authenticated
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        // Check user authorization (e.g., role or privilege)
+        Integer privilege = (Integer) session.getAttribute("privilege");
+        if (privilege == null || privilege != 1) {
+        	if(privilege != 0){
+        		 // User does not have the required privilege
+                response.sendError(HttpServletResponse.SC_FORBIDDEN); // 403 Forbidden
+                return;
+        		
+        	}
+           
+        }
 		response.setContentType("text/html");
 		reservationService c = new reservationService();
 		Reservation reservation=c.getReservation(Integer.parseInt(request.getParameter("id")));

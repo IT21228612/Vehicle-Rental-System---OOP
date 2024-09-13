@@ -29,9 +29,15 @@ public class logoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false); // Get the session, but don't create a new one if it doesn't exist
 		session.removeAttribute("userEmail");
 		session.removeAttribute("userType");
+		session.removeAttribute("privilege");
+		
+		if (session != null) {
+            session.invalidate(); // Completely invalidate/remove/delete the session
+        }
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
 		dispatcher.forward(request, response);
 	}

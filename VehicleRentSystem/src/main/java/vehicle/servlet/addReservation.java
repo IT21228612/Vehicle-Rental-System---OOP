@@ -39,6 +39,39 @@ public class addReservation extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		
+		HttpSession session = request.getSession(false); // Use false to not create a new session if it doesn't exist
+		
+		if (session == null || session.getAttribute("userEmail") == null) {
+            // User is not authenticated
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        // Check user authorization (e.g., role or privilege)
+        Integer privilege = (Integer) session.getAttribute("privilege");
+        if (privilege == null || privilege != 1) {
+        	if(privilege != 0){
+        		 // User does not have the required privilege
+                response.sendError(HttpServletResponse.SC_FORBIDDEN); // 403 Forbidden
+                return;
+        		
+        	}
+           
+        }
+        
+     // Retrieve the CSRF token from the form and session
+        String tokenFromRequest = request.getParameter("csrfToken");
+        String tokenFromSession = (String) session.getAttribute("csrfToken");
+
+        // Check if the CSRF token is valid
+        if (tokenFromRequest == null || !tokenFromRequest.equals(tokenFromSession)) {
+            // If tokens don't match, block the request
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid CSRF Token");
+            return;
+        }
+		
 		response.setContentType("text/html");
 		Reservation reservation =  new Reservation();
 

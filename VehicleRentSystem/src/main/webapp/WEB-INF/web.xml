@@ -15,6 +15,20 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
+  <session-config>
+  
+    <!-- Session timeout in minutes -->
+    <session-timeout>30</session-timeout>
+    
+    <cookie-config>
+        <name>JSESSIONID</name>
+        <http-only>true</http-only>
+        <secure>true</secure>
+    </cookie-config>
+    
+</session-config>
+  
+  
   <!-- Custom Error Page for All 4xx Errors -->
   <error-page>
     <error-code>400</error-code>

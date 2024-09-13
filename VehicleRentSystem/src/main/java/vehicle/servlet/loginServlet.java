@@ -48,27 +48,46 @@ public class loginServlet extends HttpServlet {
 		loginService login = new loginService();
 		int id =login.login(request.getParameter("email"),request.getParameter("password"));
 		
-		if(login.getSuccess()==0) {
-			HttpSession session = request.getSession();
-			session.setAttribute("userEmail",request.getParameter("email"));
-			request.setAttribute("errors_success", 0);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
-			dispatcher.forward(request, response);
-		}else if(login.getSuccess()==1) {
-			request.setAttribute("errors_success", 1);
-			HttpSession session = request.getSession();
-			session.setAttribute("userEmail", request.getParameter("email"));
-			session.setAttribute("userId", id);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
-			dispatcher.forward(request, response);
-		}else if(login.getSuccess()==2) {
-			request.setAttribute("errors_success", 1);
-			HttpSession session = request.getSession();
-			session.setAttribute("userEmail", request.getParameter("email"));
-			session.setAttribute("userId", id);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin.jsp");
-			dispatcher.forward(request, response);
+		if(login.getSuccess() == 0) {
+		    request.setAttribute("errors_success", 0);
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+		    dispatcher.forward(request, response);
+		} else if(login.getSuccess() == 1) { // Regular User Login
+		    request.setAttribute("errors_success", 1);
+		   
+		    // Invalidate the current session if it exists
+	        HttpSession oldSession = request.getSession(false);
+	        if (oldSession != null) {
+	            oldSession.invalidate();
+	        }
+	        // Create a new session
+	        HttpSession session = request.getSession(true);
+	        
+		    session.setAttribute("userEmail", request.getParameter("email"));
+		    session.setAttribute("userId", id);
+		    session.setAttribute("privilege", login.getSuccess() - 1); // privilege = 0 (User)
+		    session.setMaxInactiveInterval(1800); // Timeout after 30 minutes of inactivity
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
+		    dispatcher.forward(request, response);
+		} else if(login.getSuccess() == 2) { // Admin Login
+		    request.setAttribute("errors_success", 1);
+		    
+		    // Invalidate the current session if it exists
+	        HttpSession oldSession = request.getSession(false);
+	        if (oldSession != null) {
+	            oldSession.invalidate();
+	        }
+	        // Create a new session
+	        HttpSession session = request.getSession(true);
+		    
+		    session.setAttribute("userEmail", request.getParameter("email"));
+		    session.setAttribute("userId", id);
+		    session.setAttribute("privilege", login.getSuccess() - 1); // privilege = 1 (Admin)
+		    session.setMaxInactiveInterval(1800); // Timeout after 30 minutes of inactivity
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin.jsp");
+		    dispatcher.forward(request, response);
 		}
+
 		
 	}
 
