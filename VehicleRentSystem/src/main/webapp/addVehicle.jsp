@@ -25,7 +25,7 @@
 </head>
 <body>
   
-	        <% 
+	<% 
     request.getSession(false);  // Use false to avoid creating a new session
     Integer privilege = (Integer) session.getAttribute("privilege");
 
@@ -128,7 +128,7 @@
 	                            <div class="form-group row">
 	                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Registration No</label>
 	                                <div class="col-md-6">
-	                                    <input type="text" id="RegistrationNo" class="form-control" name="RegistrationNo" required>
+	                                    <input type="text" id="RegistrationNo" class="form-control" name="RegistrationNo" required pattern="^[a-zA-Z0-9-]+$" title="Only letters, numbers, and '-' are allowed">
 	                                </div>
 	                            </div>
 	                            
@@ -166,38 +166,37 @@
 <script>
 $(document).ready(function(){
 
+    // Function to validate RegistrationNo
+    $('#sample_form').on('submit', function(e) {
+        var registrationNo = $('#RegistrationNo').val();
+        var regex = /^[a-zA-Z0-9-]+$/;
 
-        $('#image').on('change', function(){
-            var form_data = new FormData($('#sample_form')[0]);
-        	$.ajax({
-                type: "POST",
-                enctype: 'multipart/form-data',
-            	url:"imageUploadServlet",
-                data: form_data,
-                processData: false,
-                contentType: false,
-                success:function(data)
-                {
-                    $('#imagePath').val(data);
-                }
-            })
-        });
-
+        if (!regex.test(registrationNo)) {
+            swal({
+                title: "Error",
+                text: "Registration Number can only contain letters, numbers, and '-'!",
+                icon: "warning",
+                dangerMode: true,
+            });
+            e.preventDefault();  // Prevent the form from submitting
+        }
     });
-    
-    function checkUpload(){
-    	
-    	if($('#imagePath').val()==""){
-    		swal({
-	            title: "Error",
-	            text: "Please Upload Image!",
-	            icon: "warning",
-	            dangerMode: true,
-	        });
-    		return false;
-    	}else{
-    		return true;
-    	}
-    }
-    
+
+    $('#image').on('change', function(){
+        var form_data = new FormData($('#sample_form')[0]);
+    	$.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+        	url:"imageUploadServlet",
+            data: form_data,
+            processData: false,
+            contentType: false,
+            success:function(data)
+            {
+                $('#imagePath').val(data);
+            }
+        });
+    });
+
+});
 </script>
