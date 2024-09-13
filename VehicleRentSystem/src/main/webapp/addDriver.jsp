@@ -49,7 +49,6 @@
     session.setAttribute("csrfToken", csrfToken);
 %>
 
-	
 	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	            <ul class="navbar-nav ml-auto">
 	                <% if(session.getAttribute("userEmail")==null){ %>
@@ -65,14 +64,11 @@
 	                </li>
 	                <%} %>
 	            </ul>
-	
 	        </div>
         </div>
 	</nav>
     <div class="container">
-		
-<br>
-<p></p>
+		<br>
 		<main class="login-form">
 	        <div class="row justify-content-center">
 	            <div class="col-md-8">
@@ -92,41 +88,41 @@
 								}
 							}
 						%>
-	                        <form action="addDriver" method="post" id="sample_form" enctype="multipart/form-data"  >
+	                        <form action="addDriver" method="post" id="sample_form" enctype="multipart/form-data">
 	                        
 	                         <!-- Hidden field to include the CSRF token -->
     							<input type="hidden" name="csrfToken" value="<%= csrfToken %>">
-    							
+	                            
 	                            <div class="form-group row">
-	                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Name</label>
+	                                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 	                                <div class="col-md-6">
 	                                    <input type="text" id="name" class="form-control" name="name" required>
 	                                </div>
 	                            </div>
 	                            
 	                            <div class="form-group row">
-	                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Age</label>
+	                                <label for="age" class="col-md-4 col-form-label text-md-right">Age</label>
 	                                <div class="col-md-6">
 	                                    <input type="number" id="age" class="form-control" name="age" required>
 	                                </div>
 	                            </div>
 	                            
 	                            <div class="form-group row">
-	                                <label for="email_address" class="col-md-4 col-form-label text-md-right">NIC</label>
+	                                <label for="nic" class="col-md-4 col-form-label text-md-right">NIC</label>
 	                                <div class="col-md-6">
 	                                    <input type="text" id="nic" class="form-control" name="nic" required>
 	                                </div>
 	                            </div>
 	                            
 	                            <div class="form-group row">
-	                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Address</label>
+	                                <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
 	                                <div class="col-md-6">
 	                                    <input type="text" id="address" class="form-control" name="address" required>
 	                                </div>
 	                            </div>
 	                            
 		                        <div class="form-group row">
-		                            <label class="col-md-4 col-form-label text-md-right" >Image</label>
+		                            <label class="col-md-4 col-form-label text-md-right">Image</label>
 		                            <div class="col-md-6">
 		                                <input type="file" name="image" id="image" class="form-control" required/>
 		                                <input type="hidden" id="imagePath" name="photo">
@@ -134,7 +130,7 @@
 		                        </div>
 	                            
 	                            <div class="form-group row">
-	                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Years Of Experience</label>
+	                                <label for="years" class="col-md-4 col-form-label text-md-right">Years Of Experience</label>
 	                                <div class="col-md-6">
 	                                    <input type="number" id="years" class="form-control" name="years" required>
 	                                </div>
@@ -152,45 +148,84 @@
 	        </div>
 		</main>
 	</div>
-
 </body>
 </html>
 
 <script>
 $(document).ready(function(){
 
-
-        $('#image').on('change', function(){
-            var form_data = new FormData($('#sample_form')[0]);
-        	$.ajax({
-                type: "POST",
-                enctype: 'multipart/form-data',
-            	url:"imageUploadServlet",
-                data: form_data,
-                processData: false,
-                contentType: false,
-                success:function(data)
-                {
-                    $('#imagePath').val(data);
-                }
-            })
-        });
-
+    // Image upload functionality
+    $('#image').on('change', function(){
+        var form_data = new FormData($('#sample_form')[0]);
+    	$.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+        	url:"imageUploadServlet",
+            data: form_data,
+            processData: false,
+            contentType: false,
+            success:function(data)
+            {
+                $('#imagePath').val(data);
+            }
+        })
     });
-    
-    function checkUpload(){
-    	
-    	if($('#imagePath').val()==""){
-    		swal({
-	            title: "Error",
-	            text: "Please Upload Image!",
-	            icon: "warning",
-	            dangerMode: true,
-	        });
-    		return false;
-    	}else{
-    		return true;
-    	}
-    }
-    
+
+    // jQuery validation rules
+    $('#sample_form').validate({
+        rules: {
+            name: {
+                required: true,
+                pattern: /^[a-zA-Z\s]+$/  // Only letters and spaces
+            },
+            nic: {
+                required: true,
+                pattern: /^([0-9]{9}[vV]|[0-9]{12})$/  // NIC validation: old and new format
+            },
+            address: {
+                required: true,
+                pattern: /^[^<>?/;:]+$/  // Exclude <, >, ?, /, ;, :
+            },
+            image: {
+                required: true
+            }
+        },
+        messages: {
+            name: {
+                required: "Please enter the name",
+                pattern: "Name should only contain letters and spaces"
+            },
+            nic: {
+                required: "Please enter the NIC",
+                pattern: "NIC should be in the format 'XXXXXXXXXV' or 'XXXXXXXXXXXX'"
+            },
+            address: {
+                required: "Please enter the address",
+                pattern: "Address cannot contain special characters like <, >, ?, /, ;, :"
+            },
+            image: {
+                required: "Please upload an image"
+            }
+        },
+        errorClass: "my-error-class",
+        validClass: "my-valid-class",
+        submitHandler: function(form) {
+            return checkUpload();  // Check image upload before form submission
+        }
+    });
+});
+
+function checkUpload(){
+	if($('#imagePath').val()==""){
+		swal({
+            title: "Error",
+            text: "Please Upload Image!",
+            icon: "warning",
+            dangerMode: true,
+        });
+		return false;
+	}else{
+		return true;
+	}
+}
 </script>
