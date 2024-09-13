@@ -83,6 +83,7 @@
 											<option>Bus</option>
 											<option>Van</option>
 											<option>Car</option>
+											<option>Tractor</option>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -96,6 +97,7 @@
 											<option>Honda</option>
 											<option>Ford</option>
 											<option>Mazda</option>
+											<option>Tesla</option>
 	                                	</select>
 	                                </div>
 	                            </div>
