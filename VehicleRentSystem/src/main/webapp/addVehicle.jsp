@@ -80,8 +80,9 @@
 	                                    <select name="type" class="form-control" required>
 	                                		<option value="">Select</option>
 											<option>SUV</option>
-											<option>Sedan</option>
+											<option>Bus</option>
 											<option>Van</option>
+											<option>Car</option>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -94,6 +95,7 @@
 											<option>Toyota</option>
 											<option>Honda</option>
 											<option>Ford</option>
+											<option>Mazda</option>
 	                                	</select>
 	                                </div>
 	                            </div>
