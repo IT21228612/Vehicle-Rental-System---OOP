@@ -122,7 +122,7 @@
 	                            <div class="form-group row">
 	                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Date</label>
 	                                <div class="col-md-6">
-	                                    <input type="date" id="date" class="form-control" name="date" required>
+	                                    <input type="date" id="date" class="form-control" name="date" required min="<%=java.time.LocalDate.now()%>">
 	                                </div>
 	                            </div>
 	                            
