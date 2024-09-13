@@ -1,2 +1,4 @@
 VehicleRentSystem/src/main/java/vehicle/servlet/imageUploadServlet.java
 VehicleRentSystem/build/classes/vehicle/servlet/imageUploadServlet.class
+VehicleRentSystem/src/main/webapp/image/
+
