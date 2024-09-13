@@ -54,7 +54,15 @@ public class loginServlet extends HttpServlet {
 		    dispatcher.forward(request, response);
 		} else if(login.getSuccess() == 1) { // Regular User Login
 		    request.setAttribute("errors_success", 1);
-		    HttpSession session = request.getSession();
+		   
+		    // Invalidate the current session if it exists
+	        HttpSession oldSession = request.getSession(false);
+	        if (oldSession != null) {
+	            oldSession.invalidate();
+	        }
+	        // Create a new session
+	        HttpSession session = request.getSession(true);
+	        
 		    session.setAttribute("userEmail", request.getParameter("email"));
 		    session.setAttribute("userId", id);
 		    session.setAttribute("privilege", login.getSuccess() - 1); // privilege = 0 (User)
@@ -63,7 +71,15 @@ public class loginServlet extends HttpServlet {
 		    dispatcher.forward(request, response);
 		} else if(login.getSuccess() == 2) { // Admin Login
 		    request.setAttribute("errors_success", 1);
-		    HttpSession session = request.getSession();
+		    
+		    // Invalidate the current session if it exists
+	        HttpSession oldSession = request.getSession(false);
+	        if (oldSession != null) {
+	            oldSession.invalidate();
+	        }
+	        // Create a new session
+	        HttpSession session = request.getSession(true);
+		    
 		    session.setAttribute("userEmail", request.getParameter("email"));
 		    session.setAttribute("userId", id);
 		    session.setAttribute("privilege", login.getSuccess() - 1); // privilege = 1 (Admin)
