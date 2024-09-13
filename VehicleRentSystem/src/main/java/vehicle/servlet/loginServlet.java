@@ -58,6 +58,7 @@ public class loginServlet extends HttpServlet {
 		    session.setAttribute("userEmail", request.getParameter("email"));
 		    session.setAttribute("userId", id);
 		    session.setAttribute("privilege", login.getSuccess() - 1); // privilege = 0 (User)
+		    session.setMaxInactiveInterval(1800); // Timeout after 30 minutes of inactivity
 		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp");
 		    dispatcher.forward(request, response);
 		} else if(login.getSuccess() == 2) { // Admin Login
@@ -66,6 +67,7 @@ public class loginServlet extends HttpServlet {
 		    session.setAttribute("userEmail", request.getParameter("email"));
 		    session.setAttribute("userId", id);
 		    session.setAttribute("privilege", login.getSuccess() - 1); // privilege = 1 (Admin)
+		    session.setMaxInactiveInterval(1800); // Timeout after 30 minutes of inactivity
 		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin.jsp");
 		    dispatcher.forward(request, response);
 		}
