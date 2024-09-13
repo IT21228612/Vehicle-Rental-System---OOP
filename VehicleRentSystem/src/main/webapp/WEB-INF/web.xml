@@ -16,8 +16,16 @@
   </welcome-file-list>
   
   <session-config>
+  
     <!-- Session timeout in minutes -->
     <session-timeout>30</session-timeout>
+    
+    <cookie-config>
+        <name>JSESSIONID</name>
+        <http-only>true</http-only>
+        <secure>true</secure>
+    </cookie-config>
+    
 </session-config>
   
   
