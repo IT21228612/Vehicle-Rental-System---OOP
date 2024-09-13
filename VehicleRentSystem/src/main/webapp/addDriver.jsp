@@ -40,6 +40,15 @@
         return;
     }
 %>
+
+<%
+    // Generate a CSRF token
+    String csrfToken = java.util.UUID.randomUUID().toString();
+
+    // Store the CSRF token in the session
+    session.setAttribute("csrfToken", csrfToken);
+%>
+
 	
 	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	            <ul class="navbar-nav ml-auto">
@@ -84,6 +93,10 @@
 							}
 						%>
 	                        <form action="addDriver" method="post" id="sample_form" enctype="multipart/form-data"  >
+	                        
+	                         <!-- Hidden field to include the CSRF token -->
+    							<input type="hidden" name="csrfToken" value="<%= csrfToken %>">
+    							
 	                            <div class="form-group row">
 	                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Name</label>
 	                                <div class="col-md-6">

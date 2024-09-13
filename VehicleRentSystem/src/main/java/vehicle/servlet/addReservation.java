@@ -60,6 +60,17 @@ public class addReservation extends HttpServlet {
         	}
            
         }
+        
+     // Retrieve the CSRF token from the form and session
+        String tokenFromRequest = request.getParameter("csrfToken");
+        String tokenFromSession = (String) session.getAttribute("csrfToken");
+
+        // Check if the CSRF token is valid
+        if (tokenFromRequest == null || !tokenFromRequest.equals(tokenFromSession)) {
+            // If tokens don't match, block the request
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid CSRF Token");
+            return;
+        }
 		
 		response.setContentType("text/html");
 		Reservation reservation =  new Reservation();
