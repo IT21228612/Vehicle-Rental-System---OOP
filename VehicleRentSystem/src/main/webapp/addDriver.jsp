@@ -86,7 +86,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="name" class="form-control" name="name" required pattern="[a-zA-Z\s]+" title="Name should only contain letters and spaces">
+                                        <input type="text" id="name" class="form-control" name="name" required >
                                     </div>
                                 </div>
                                 
@@ -100,18 +100,17 @@
                                 <div class="form-group row">
                                     <label for="nic" class="col-md-4 col-form-label text-md-right">NIC</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="nic" class="form-control" name="nic" required
-            								pattern="[0-9]{9}V" 
-            								title="NIC must be 9 digits followed by a capital V">
+                                        <input type="text" id="nic" class="form-control" name="nic" required >
+            								 
+            								
                                     </div>
                                 </div>
                                 
                                 <div class="form-group row">
                                     <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="address" class="form-control" name="address" required
-                                        	pattern="[a-zA-Z0-9,./\s]*"
-                                        	title="Special characters allowed: / , .">
+                                        <input type="text" id="address" class="form-control" name="address" required >
+                                        	
                                     </div>
                                 </div>
                                 
@@ -126,7 +125,7 @@
                                 <div class="form-group row">
                                     <label for="years" class="col-md-4 col-form-label text-md-right">Years Of Experience</label>
                                     <div class="col-md-6">
-                                        <input type="number" id="years" class="form-control" name="years" required>
+                                        <input type="number" id="years" class="form-control" name="years" required title="Years of experience should be a valid number.">
                                     </div>
                                 </div>
                                 
@@ -161,47 +160,7 @@ $(document).ready(function(){
         });
     });
 
-    $('#sample_form').validate({
-        rules: {
-            name: {
-                required: true,
-                pattern: /^[a-zA-Z\s]+$/  // Only letters and spaces
-            },
-            nic: {
-                required: true,
-                pattern: /^([0-9]{9}[vV]|[0-9]{12})$/  // NIC validation: old and new format
-            },
-            address: {
-                required: true,
-                pattern: /^[^<>?/;:]+$/  // Exclude <, >, ?, /, ;, :
-            },
-            image: {
-                required: true
-            }
-        },
-        messages: {
-            name: {
-                required: "Please enter the name",
-                pattern: "Name should only contain letters and spaces"
-            },
-            nic: {
-                required: "Please enter the NIC",
-                pattern: "NIC should be in the format 'XXXXXXXXXV' or 'XXXXXXXXXXXX'"
-            },
-            address: {
-                required: "Please enter the address",
-                pattern: "Address cannot contain special characters like <, >, ?, /, ;, :"
-            },
-            image: {
-                required: "Please upload an image"
-            }
-        },
-        errorClass: "my-error-class",
-        validClass: "my-valid-class",
-        submitHandler: function(form) {
-            return checkUpload();
-        }
-    });
+   //methanata
 });
 
 function checkUpload() {
@@ -217,4 +176,42 @@ function checkUpload() {
         return true;
     }
 }
+function checkDetails() {
+	var name = document.getElementById("name").value;
+    var address = document.getElementById("address").value;
+    var nic = document.getElementById("nic").value;
+    
+    var nameRegex = /^[a-zA-Z\s]*$/;
+    var addressRegex = /^[a-zA-Z0-9\s,.'-]*$/;
+    var nicRegex = /^(\d{9}[Vv]|\d{12})$/;
+    if (!nameRegex.test(name)) {
+        swal({
+            title: "Error",
+            text: "Name should not contain special characters!",
+            icon: "warning",
+            dangerMode: true,
+        });
+        return false;
+    }
+    if (!addressRegex.test(address)) {
+        swal({
+            title: "Error",
+            text: "Address should not contain special characters!",
+            icon: "warning",
+            dangerMode: true,
+        });
+        return false;
+    }
+    if (!nicRegex.test(nic)) {
+        swal({
+            title: "Error",
+            text: "NIC should be in the format '123456789V' or '123456789012'!",
+            icon: "warning",
+            dangerMode: true,
+        });
+        return false;
+    }
+    return checkUpload();
+}
+
 </script>
