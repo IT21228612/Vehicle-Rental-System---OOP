@@ -7,6 +7,7 @@ This Java web app is a simple CRUD web application with user login functionality
 - **Admin Functionality**:
   - Add, view, edit, and delete vehicles and drivers.
   - View and delete all registered users.
+  - Login, logout, and register.
 
 - **User Functionality**:
   - Add, view, edit, and delete vehicle reservations (users must also select a driver when reserving a vehicle).
