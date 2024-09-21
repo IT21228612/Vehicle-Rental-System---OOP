@@ -24,3 +24,17 @@ This Java web app is a simple CRUD web application with user login functionality
 7. Go to the **phpMyAdmin** interface and create the database as **"vehicle_rent"** (the SQL file for creating the DB is in the SQL folder inside the project).
 8. Register as a user.
 9. To make an admin, go to the phpMyAdmin interface, access the database, and change the user's privilege to **"1."** When the user logs in, they will be directed to the admin dashboard instead of the user dashboard.
+
+
+![Screenshot (1041)](https://github.com/user-attachments/assets/ecb0524f-c691-4eb6-bb57-bdd84320aac0)
+![Screenshot (1042)](https://github.com/user-attachments/assets/e3ef6075-3f9b-4a50-945b-0d93c9dc5eeb)
+![Screenshot (1031)](https://github.com/user-attachments/assets/24569d7b-ea34-451f-8e73-b3dff72ab0d3)
+![Screenshot (1032)](https://github.com/user-attachments/assets/28d400f3-03e9-4d06-8716-a240d06271c2)
+![Screenshot (1033)](https://github.com/user-attachments/assets/3eee2fdb-0ee6-4f4f-9bc8-0442d1f46d83)
+![Screenshot (1034)](https://github.com/user-attachments/assets/65da86f8-2e60-4e72-8d40-71bc5b8fb9fa)
+![Screenshot (1035)](https://github.com/user-attachments/assets/31448311-0ed5-48c0-b209-d1af14d4acfb)
+![Screenshot (1036)](https://github.com/user-attachments/assets/22064790-5a13-41ec-9ded-a098e7a1ebd7)
+![Screenshot (1037)](https://github.com/user-attachments/assets/35ce596c-0fde-4322-9475-8c5a449573d3)
+![Screenshot (1038)](https://github.com/user-attachments/assets/b7ec0bb1-339e-42b2-b232-38f76ed19df8)
+![Screenshot (1039)](https://github.com/user-attachments/assets/719f5fb4-09ae-4964-a66c-55903a66f968)
+![Screenshot (1040)](https://github.com/user-attachments/assets/658cd411-6fbd-41ee-b28a-d26da7124a8c)
