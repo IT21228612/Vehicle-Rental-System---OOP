@@ -74,28 +74,28 @@
 	                            <div class="form-group row">
 	                                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 	                                <div class="col-md-6">
-	                                    <input type="text" id="name" class="form-control" name="name" required>
+	                                    <input type="text" id="name" class="form-control" name="name" required> <!-- Validated for overcome XLT Injection -->
 	                                </div>
 	                            </div>
 	
 	                            <div class="form-group row">
 	                                <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
 	                                <div class="col-md-6">
-	                                    <input type="text" id="address" class="form-control" name="address" required>
+	                                    <input type="text" id="address" class="form-control" name="address" required> <!-- Validated for overcome XLT Injection -->
 	                                </div>
 	                            </div>
 	                            
 	                            <div class="form-group row">
 	                                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 	                                <div class="col-md-6">
-	                                    <input type="email" id="email" class="form-control" name="email" required>
+	                                    <input type="email" id="email" class="form-control" name="email" required> <!-- Validated for overcome XLT Injection -->
 	                                </div>
 	                            </div>
 			                          
 	                            <div class="form-group row">
 	                                <label for="nic" class="col-md-4 col-form-label text-md-right">NIC</label>
 	                                <div class="col-md-6">
-	                                    <input type="text" id="nic" class="form-control" name="nic" required>
+	                                    <input type="text" id="nic" class="form-control" name="nic" required> <!-- Validated for overcome XLT Injection -->
 	                                </div>
 	                            </div>
 	                              
@@ -110,7 +110,7 @@
 	                            <div class="form-group row">
 	                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 	                                <div class="col-md-6">
-	                                    <input type="password" id="password" class="form-control" name="password" required>
+	                                    <input type="password" id="password" class="form-control" name="password" required> 
 	                                </div>
 	                            </div>
 	                            
@@ -187,7 +187,7 @@ function checkDetails() {
     if (!nameRegex.test(name)) {
         swal({
             title: "Error",
-            text: "Name should not contain special characters!",
+            text: "Name should not contain special characters!", //Name validated for get rid of XLT Injection
             icon: "warning",
             dangerMode: true,
         });
@@ -197,7 +197,7 @@ function checkDetails() {
     if (!addressRegex.test(address)) {
         swal({
             title: "Error",
-            text: "Address should not contain special characters!",
+            text: "Address should not contain special characters!", //Address validated for get rid of XLT Injection
             icon: "warning",
             dangerMode: true,
         });
@@ -207,7 +207,7 @@ function checkDetails() {
     if (!emailRegex.test(email)) {
         swal({
             title: "Error",
-            text: "Please enter a valid email!",
+            text: "Please enter a valid email!", //Email validated for get rid of XLT Injection
             icon: "warning",
             dangerMode: true,
         });
@@ -217,7 +217,7 @@ function checkDetails() {
     if (!nicRegex.test(nic)) {
         swal({
             title: "Error",
-            text: "NIC should be in the format '123456789V' or '123456789012'!",
+            text: "NIC should be in the format '123456789V' or '123456789012'!", //NIC validated for get rid of XLT Injection
             icon: "warning",
             dangerMode: true,
         });
